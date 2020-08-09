@@ -7,6 +7,7 @@ export const articlesRoutes: Routes = [
   { path: '', component: ArticleListComponent }, // articles/
   {
     path: ':slug',
+    canActivateChild: [ArticlesGuard],
     children: [
       { path: '', component: ArticleDetailComponent },
       // { path: 'edit', component: ArticleDetailEditComponent}
