@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivateChild } from '@angular/router';
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+  CanActivateChild,
+  CanLoad
+} from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
@@ -16,6 +23,7 @@ export class ArticlesGuard implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     return this.authService.currentUser.pipe(map(user => !!user));
+    // return of(false);
   }
 
   canActivateChild(
@@ -28,5 +36,4 @@ export class ArticlesGuard implements CanActivate, CanActivateChild {
     }
     return this.authService.currentUser.pipe(map(user => user.articles.includes(targetSlug)));
   }
-
 }

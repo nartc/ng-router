@@ -21,7 +21,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {enableTracing: !environment.production})],
+  imports: [RouterModule.forRoot(routes, { enableTracing: !environment.production })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
