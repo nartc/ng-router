@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 import {
-  CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree,
+  CanActivate,
   CanActivateChild,
-  CanLoad
+  CanDeactivate,
+  CanLoad,
+  Route,
+  RouterStateSnapshot,
+  UrlSegment
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CheckDeactivate } from '../check-deactivate';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ArticlesGuard implements CanActivate, CanActivateChild {
+export class ArticlesGuard implements CanActivate, CanActivateChild, CanLoad, CanDeactivate<CheckDeactivate> {
   constructor(private readonly authService: AuthService) {
   }
 
@@ -23,7 +26,6 @@ export class ArticlesGuard implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     return this.authService.currentUser.pipe(map(user => !!user));
-    // return of(false);
   }
 
   canActivateChild(
@@ -35,5 +37,21 @@ export class ArticlesGuard implements CanActivate, CanActivateChild {
       return of(false);
     }
     return this.authService.currentUser.pipe(map(user => user.articles.includes(targetSlug)));
+  }
+
+  canLoad(
+    route: Route,
+    segments: UrlSegment[]
+  ): Observable<boolean> {
+    return this.authService.currentUser.pipe(map(user => !!user));
+  }
+
+  canDeactivate(
+    component: CheckDeactivate,
+    currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot,
+    nextState?: RouterStateSnapshot
+  ): Observable<boolean> {
+    return component.checkDeactivate(currentRoute, currentState, nextState);
   }
 }

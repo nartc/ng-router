@@ -16,7 +16,7 @@ export const routes: Routes = [
       feature: 'articles',
       permissions: 'articles-read'
     },
-    canActivate: [ArticlesGuard]
+    canLoad: [ArticlesGuard]
   }
 ];
 
