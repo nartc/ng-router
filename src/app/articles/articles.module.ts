@@ -6,9 +6,10 @@ import { ArticleDetailComponent } from './article-detail/article-detail.componen
 import { ArticleListComponent } from './article-list/article-list.component';
 import { articlesRoutes } from './articles.routes';
 import { ArticleDetailEditComponent } from './article-detail-edit/article-detail-edit.component';
+import { NoArticleComponent } from './no-article/no-article.component';
 
 @NgModule({
-  declarations: [ArticleListComponent, ArticleDetailComponent, ArticleDetailEditComponent],
+  declarations: [ArticleListComponent, ArticleDetailComponent, ArticleDetailEditComponent, NoArticleComponent],
   imports: [
     CommonModule,
     FormsModule,
